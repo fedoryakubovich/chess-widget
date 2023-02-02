@@ -6,13 +6,14 @@ import { useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 
 import HomeBreadCrumb from './HomeBreadCrumb';
-import Loader from '../../components/Loader';
-import { LANGUAGE_OPTIONS } from '../../constants';
-import { LOCALES } from '../../intl/constants';
-import { ACTIONS } from '../../store/actions';
-import { useAppState } from '../../store/context';
-import { IBreadcrumb } from '../../types';
 import Select from '../Select';
+
+import Loader from '~/src/components/Loader';
+import { LANGUAGE_OPTIONS } from '~/src/constants';
+import { LOCALES } from '~/src/intl/constants';
+import { ACTIONS } from '~/src/store/actions';
+import { useAppState } from '~/src/store/context';
+import { IBreadcrumb } from '~/src/types';
 
 type CardProps = {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ const Card: React.FC<CardProps> = ({ children, breadcrumbs, isLoading }) => {
   const navigate = useNavigate();
   const { dispatch } = useAppState();
   const { formatMessage } = useIntl();
+  const { state } = useAppState();
 
   const handleOnChangeLanguage = useCallback(
     (locale: LOCALES) => {
@@ -67,7 +69,7 @@ const Card: React.FC<CardProps> = ({ children, breadcrumbs, isLoading }) => {
           })}
         </ol>
 
-        <Select options={LANGUAGE_OPTIONS} onChange={handleOnChangeLanguage} />
+        <Select options={LANGUAGE_OPTIONS} onChange={handleOnChangeLanguage} value={state.locale} />
       </nav>
 
       {!isLoading && <section className="content">{children}</section>}

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useLocation } from 'react-router-dom';
-
 import Stats from '../components/Stats';
 import { useUserStats } from '../hooks';
+
+import { useAppState } from '~/src/store/context';
 
 const prepareData = ({ stats }) => {
   if (!stats) return {};
@@ -46,9 +46,9 @@ const prepareData = ({ stats }) => {
 };
 
 const StatsContainer: React.FC = () => {
-  const { state } = useLocation();
+  const { state: appState } = useAppState();
 
-  const { data: stats, isLoading } = useUserStats({ username: state.username });
+  const { data: stats, isLoading } = useUserStats({ username: appState.user.username });
 
   return !isLoading && <Stats stats={prepareData({ stats })} />;
 };

@@ -5,4 +5,7 @@ export enum ACTIONS {
 
   // LOCALE
   setLocale = 'setLocale',
+
+  // TITLE
+  setTitle = 'setTitle',
 }

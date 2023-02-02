@@ -1,9 +1,9 @@
-import { intlKeys } from './intl';
-import { LOCALES } from './intl/constants';
+import { intlKeys } from '~/src/intl';
+import { LOCALES } from '~/src/intl/constants';
 
 export const OBSERVED_ATTRS = ['username'];
 
-enum TITLE {
+export enum TITLE {
   GM = 'GM',
   WGM = 'WGM',
   IM = 'IM',

@@ -19,6 +19,8 @@ class ReactToWebComponent extends HTMLElement {
     }
 
     ReactToWebComponent.reactComponent = component;
+
+    this.createComponent({});
   }
 
   static get observedAttributes() {

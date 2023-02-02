@@ -36,7 +36,13 @@ export const useGetUsersInfo = ({ usernames }: { usernames: string[] }) => {
   );
 };
 
-export const useUser = ({ username }): UseQueryResult<IUser> => {
+export const useUser = ({
+  username,
+  enabled,
+}: {
+  username: string;
+  enabled: boolean;
+}): UseQueryResult<IUser> => {
   return useQuery(
     ['user', username],
     async () => {
@@ -44,7 +50,7 @@ export const useUser = ({ username }): UseQueryResult<IUser> => {
 
       return result.data;
     },
-    { refetchOnWindowFocus: false, refetchOnMount: false, retry: false }
+    { refetchOnWindowFocus: false, refetchOnMount: false, retry: false, enabled }
   );
 };
 

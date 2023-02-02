@@ -3,16 +3,17 @@ import React, { ChangeEvent, useId } from 'react';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 
-import { IOption } from '../types';
+import { IOption } from '~/src/types';
 
 type SelectProps = {
   labelKey?: string;
   onChange?: (option: string) => void;
   className?: string;
   options: IOption[];
+  value: string;
 };
 
-const Select: React.FC<SelectProps> = ({ labelKey, onChange, className, options }) => {
+const Select: React.FC<SelectProps> = ({ labelKey, onChange, className, options, value }) => {
   const { formatMessage } = useIntl();
   const selectId = useId();
 
@@ -34,6 +35,7 @@ const Select: React.FC<SelectProps> = ({ labelKey, onChange, className, options 
         id={selectId}
         onChange={handleChange}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        value={value}
       >
         {options.map((title) => {
           return (

@@ -4,7 +4,8 @@ import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import AppReducer from './reducer';
-import { IAppState, LocaleActions, UserActions } from './types';
+import { IAppState, LocaleActions, TitleActions, UserActions } from './types';
+import { TITLE } from '../constants';
 
 import { DEFAULT_LOCALE, LANG_MESSAGES } from '~/src/intl';
 
@@ -19,10 +20,11 @@ type AppProviderProps = {
 const initialState = {
   user: undefined,
   locale: DEFAULT_LOCALE,
+  title: TITLE.GM,
 };
 const AppContext = createContext<{
   state: IAppState;
-  dispatch: Dispatch<UserActions | LocaleActions>;
+  dispatch: Dispatch<UserActions | LocaleActions | TitleActions>;
 }>({ state: initialState, dispatch: () => null });
 
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {

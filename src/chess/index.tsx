@@ -6,15 +6,15 @@ import { ROUTES } from './constants';
 import HomeContainer from './containers/HomeContainer';
 import StatsContainer from './containers/StatsContainer';
 import UserContainer from './containers/UserContainer';
-import { AppProvider } from '../store/context';
-import { WebComponentProps } from '../types';
 
 import WCWrapper from '~/src/components/WCWrapper';
+import { AppProvider } from '~/src/store/context';
+import { WebComponentProps } from '~/src/types';
 
 const User: React.FC<WebComponentProps> = ({ username }) => {
   return (
     <AppProvider>
-      <MemoryRouter initialEntries={[ROUTES.home]}>
+      <MemoryRouter initialEntries={[username ? ROUTES.user : ROUTES.home]}>
         <Routes>
           <Route path={ROUTES.home} element={<HomeContainer />} />
 
@@ -27,4 +27,6 @@ const User: React.FC<WebComponentProps> = ({ username }) => {
   );
 };
 
-customElements.define('chess-widget', WCWrapper(User));
+if (!customElements.get('chess-widget')) {
+  customElements.define('chess-widget', WCWrapper(User));
+}

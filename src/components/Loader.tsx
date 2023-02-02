@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { useIntl } from 'react-intl';
 
-import { intlKeys } from '../intl';
+import { intlKeys } from '~/src/intl';
 
 type LoaderProps = {
   className?: string;

@@ -1,27 +1,41 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import User from '../components/User';
 import { ROUTES } from '../constants';
 import { useUser } from '../hooks';
 
+import { ACTIONS } from '~/src/store/actions';
+import { useAppState } from '~/src/store/context';
 import { IUser } from '~/src/types';
 
 type UserContainerProps = {
-  username: string;
+  username?: string;
 };
 
 const UserContainer: React.FC<UserContainerProps> = ({ username }) => {
-  const { state } = useLocation();
-  const { data: user, isLoading } = useUser({ username: state.username });
+  const { state: appState, dispatch } = useAppState();
+  const { data: user, isLoading, isSuccess } = useUser({ username, enabled: Boolean(username) });
   const navigate = useNavigate();
 
-  const handleGoToStats = useCallback(() => {
-    navigate(ROUTES.stats, { state: { username } });
-  }, [navigate, username]);
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch({ type: ACTIONS.setUser, payload: { user } });
+    }
+  }, [dispatch, isSuccess, user]);
 
-  return <User user={user as IUser} isLoading={isLoading} handleGoToStats={handleGoToStats} />;
+  const handleGoToStats = useCallback(() => {
+    navigate(ROUTES.stats);
+  }, [navigate]);
+
+  return (
+    <User
+      user={(user as IUser) || appState.user}
+      isLoading={isLoading}
+      handleGoToStats={handleGoToStats}
+    />
+  );
 };
 
 export default UserContainer;

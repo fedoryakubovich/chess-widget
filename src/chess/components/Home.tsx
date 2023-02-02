@@ -9,16 +9,24 @@ import { HOME_BREADCRUMBS } from '../constants';
 import Card from '~/src/components/Card';
 import Loader from '~/src/components/Loader';
 import Select from '~/src/components/Select';
-import { TITLE_OPTIONS } from '~/src/constants';
+import { TITLE, TITLE_OPTIONS } from '~/src/constants';
 import { intlKeys } from '~/src/intl';
 
 type HomeProps = {
   users: any;
   handleLoadMore: () => void;
   handleGoToInfo: () => void;
+  title: TITLE;
+  handleChangeTitle: (title: TITLE) => void;
 };
 
-const Home: React.FC<HomeProps> = ({ users, handleLoadMore, handleGoToInfo }) => {
+const Home: React.FC<HomeProps> = ({
+  users,
+  handleLoadMore,
+  handleGoToInfo,
+  title,
+  handleChangeTitle,
+}) => {
   const { formatMessage } = useIntl();
 
   return (
@@ -27,6 +35,8 @@ const Home: React.FC<HomeProps> = ({ users, handleLoadMore, handleGoToInfo }) =>
         labelKey={intlKeys.home.labels.playersBy}
         className="w-full"
         options={TITLE_OPTIONS}
+        value={title}
+        onChange={handleChangeTitle}
       />
 
       <div className="w-full mt-4">
@@ -71,7 +81,7 @@ const Home: React.FC<HomeProps> = ({ users, handleLoadMore, handleGoToInfo }) =>
                 <button
                   type="button"
                   className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                  onClick={() => handleGoToInfo(user)}
+                  onClick={() => handleGoToInfo(user?.data)}
                 >
                   {formatMessage({ id: intlKeys.home.buttons.moreInfo })}
                 </button>

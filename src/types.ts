@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 export interface WebComponentProps {
-  username: string;
+  username?: string;
 }
 
 export type Component = FC<WebComponentProps>;
